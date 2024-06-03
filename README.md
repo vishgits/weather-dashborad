@@ -46,3 +46,7 @@ High Chart for showing forecast graph
 
 ### 7. Axios
 Axios for reteving data from API
+
+
+
+
