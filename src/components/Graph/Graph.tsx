@@ -4,6 +4,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { generateGraphOption } from "../../utlis/graph";
 import { useSystem } from "../../contexts/SystemContext/useSystem";
+import { convertToCelicus } from "../../utlis/common";
 
 export default function Graph() {
   const [forecastData, setforecastData] = useState<seriesTypes[]>([]);
@@ -26,8 +27,8 @@ export default function Graph() {
       condition.length > 0 &&
       condition[0].forecast?.map((element: forecastType) => {
         city = condition[0].location.city;
-        max_temp.push(element.max_temp);
-        min_temp.push(element.min_temp);
+        max_temp.push(convertToCelicus(element.max_temp));
+        min_temp.push(convertToCelicus(element.min_temp));
         category.push(
           new Date(element.date).toLocaleDateString("en-GB", {
             weekday: "short",
@@ -37,16 +38,14 @@ export default function Graph() {
         );
       });
     setCategory(category);
-    console.log([
-      { ...series, data: max_temp, name: "Maximum Temperature" },
-      { ...series, data: min_temp, name: "Minimum Temperature" },
-    ])
     return [
       { ...series, data: max_temp, name: "Maximum Temperature" },
       { ...series, data: min_temp, name: "Minimum Temperature" },
     ];
     
   };
+
+
 
   return (
     <div data-testid="home-component">

@@ -1,7 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import { useSystem } from "../../contexts/SystemContext/useSystem";
 import SelectField from "../Elements/SelectField/SelectField";
 import { WeatherData } from "../../interface";
+import { convertToCelicus } from "../../utlis/common";
+
 
 export default function ConditionCard() {
   const { condition,weather,city,setCondition  } = useSystem();
@@ -30,7 +32,7 @@ export default function ConditionCard() {
       {condition?.map((data: WeatherData) => (
         
         <div className="gap-x-3 mt-5 pb-3" key={data.id}>
-          <p className="mt-3 text-sm font-semibold leading-6 text-gray-900">Temeperature: {data.current_weather.temperature} &deg;C</p>
+          <p className="mt-3 text-sm font-semibold leading-6 text-gray-900">Temeperature: {convertToCelicus(data.current_weather.temperature)} &deg;C</p>
           <p className="mt-3 text-sm font-semibold leading-6 text-gray-900">Humidity: {data.current_weather.humidity} grams/m3</p>
           <p className="mt-3 text-sm font-semibold leading-6 text-gray-900">Condition: {data.current_weather.weather_condition}</p>
           <p className="mt-3 text-sm font-semibold leading-6 text-gray-900">Wind Speed: {data.current_weather.wind_speed} mph</p>
